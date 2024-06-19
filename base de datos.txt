@@ -1,0 +1,35 @@
+-- Crear la base de datos si no existe
+CREATE DATABASE IF NOT EXISTS tu_base_de_datos;
+USE tu_base_de_datos;
+
+-- Crear la tabla productos
+CREATE TABLE IF NOT EXISTS productos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    descripcion TEXT NOT NULL,
+    precio DECIMAL(10, 2) NOT NULL,
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Crear la tabla proyectos
+CREATE TABLE IF NOT EXISTS proyectos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    descripcion TEXT,
+    fecha_inicio DATE,
+    fecha_fin DATE
+);
+
+-- Crear la tabla intermedia productos_proyectos
+CREATE TABLE IF NOT EXISTS productos_proyectos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    producto_id INT NOT NULL,
+    proyecto_id INT NOT NULL,
+    FOREIGN KEY (producto_id) REFERENCES productos(id),
+    FOREIGN KEY (proyecto_id) REFERENCES proyectos(id)
+);
+
+-- Insertar datos iniciales en proyectos
+INSERT INTO proyectos (nombre, descripcion, fecha_inicio, fecha_fin) VALUES
+('Proyecto 1', 'Descripción del Proyecto 1', '2024-01-01', '2024-12-31'),
+('Proyecto 2', 'Descripción del Proyecto 2', '2024-02-01', '2024-11-30');
